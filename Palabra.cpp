@@ -52,7 +52,7 @@ using namespace std;
 		double Palabra::distancia(Elemento* otro){ // En si ya este metodo esta completo no se porque....
 			double distanciaDeBiagramas = 0.0;
 			Palabra* local1 = dynamic_cast<Palabra*>(otro);
-			distanciaDeBiagramas = 1 - /* esto no agarra valor decimal y le es restado a 1 si si estan llegando los valores necesarios arriba y abajo */ (((2 * this->calcularUnion(local1)) / (this->calcularCardinalidad() + local1->calcularCardinalidad())));
+			distanciaDeBiagramas = 1 - /* esto no agarra valor decimal y le es restado a 1 si si estan llegando los valores necesarios arriba y abajo */ (((2 * this->calcularInterseccion(local1)) / (this->calcularCardinalidad() + local1->calcularCardinalidad())));
 			cout << distanciaDeBiagramas;  //no se porque no imprime un double.... .-.
 			return distanciaDeBiagramas;	
 		}
@@ -139,7 +139,7 @@ using namespace std;
 				return count + 1; //sinceramente no se porque pero para que de bien tiene que estar ese +1
 			} 
 			
-		int Palabra::calcularUnion(Palabra* otra){ 
+		int Palabra::calcularInterseccion(Palabra* otra){ 
 			int result = 0;
 			string local1 = this->palabra;
 			string local2 = otra->palabra;
