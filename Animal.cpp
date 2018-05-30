@@ -62,7 +62,7 @@ void Animal::setTresColores(string color1, string color2, string color3){
 	_init(color1, color2, color3);
 }
 
-string operator[](int i){
+string Animal::operator[](int i){
 	string local = "";
 	if(i>=0 && i<3){
 		local=colores[i];
