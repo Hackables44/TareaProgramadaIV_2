@@ -15,12 +15,11 @@ class Animal{
 		Animal();
 		Animal(string);
 		virtual ~Animal();
+		void _init(string color1, string color2, string color3);
 		void setUnColor(string);
 		void setDosColores(string,string);
 		void setTresColores(string,string,string);
-		string getColor1();
-		string getColor2();
-		string getColor3();
+		string operator[](int i);
 		virtual ostream& imprimir(ostream&) = 0;
 
 };
