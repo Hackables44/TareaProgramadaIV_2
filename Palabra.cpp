@@ -10,8 +10,7 @@ using namespace std;
 
 		//Constructor de la clase Palabra
 		Palabra::Palabra(){
-			palabra = new char[1];
-			palabra[0] = '\0';
+			palabra = 0;
 			longitud = 0;
 		}
 		
@@ -50,10 +49,11 @@ using namespace std;
 		}
 		
 		double Palabra::distancia(Elemento* otro){ // En si ya este metodo esta completo no se porque....
-			double distanciaDeBiagramas = 0.0;
+			double distanciaDeBiagramas = 1.0;
 			Palabra* local1 = dynamic_cast<Palabra*>(otro);
-			distanciaDeBiagramas = 1 - /* esto no agarra valor decimal y le es restado a 1 si si estan llegando los valores necesarios arriba y abajo */ (((2 * this->calcularInterseccion(local1)) / (this->calcularCardinalidad() + local1->calcularCardinalidad())));
-			cout << distanciaDeBiagramas;  //no se porque no imprime un double.... .-.
+			distanciaDeBiagramas = 1 - (double)((2 * (double)this->calcularInterseccion(local1)) / ((double)this->calcularCardinalidad() + (double)local1->calcularCardinalidad()));
+			//sigo sin saber porque lo de arriba no me da double pero ya los metodos se supone que estan bien 
+			cout << distanciaDeBiagramas << endl;  
 			return distanciaDeBiagramas;	
 		}
 		
@@ -80,8 +80,7 @@ using namespace std;
 		//Sobrecarga del operador = para asignar una palabra a otra
 		Palabra& Palabra::operator=(const Palabra& otro){
 			this->setPalabra(otro.palabra);
-			return *this;
-			
+			return *this;	
 		}
 		
 
@@ -121,26 +120,38 @@ using namespace std;
 			return entrada;	
 		}
 
-		int Palabra::calcularCardinalidad(){ 
+		double Palabra::calcularCardinalidad(){ 
+			double count = 0.0;
+			int controlador = 0;
+			if(palabra){
 				string palabraAnalizar[longitud - 1];
 				string local = palabra;
 				for(int i = 0; i < longitud - 1; ++i){
 					palabraAnalizar[i] = local.substr(i,2);
-					cout << palabraAnalizar[i] << endl;
 				}
-				int count = 0;
-				string buffer[longitud - 1];
+				string buffer[25];
+				for(int n = 0; n < 25; ++n){
+					buffer[n] = "0";
+				}
 				for(int i = 0; i < longitud - 1; ++i){
-					for(int n = 0; n < longitud - 1 && palabraAnalizar[i] != palabraAnalizar[n] && buffer[n] != palabraAnalizar[n]; ++n){
-						++count;
-						buffer[i] = palabraAnalizar[i];
+					for(int n = 0; n < 25; ++n){
+						if(palabraAnalizar[i] == buffer[n]){
+							controlador = 1;
+						}
 					}
-				}
-				return count + 1; //sinceramente no se porque pero para que de bien tiene que estar ese +1
+					if(controlador == 0){
+						buffer[i] = palabraAnalizar[i];
+						++count;
+					}
+					controlador = 0;
+				}			
+				
 			} 
+			return count;
+		}
 			
-		int Palabra::calcularInterseccion(Palabra* otra){ 
-			int result = 0;
+		double Palabra::calcularInterseccion(Palabra* otra){ 
+			double result = 0.0;
 			string local1 = this->palabra;
 			string local2 = otra->palabra;
 			string vector1[this->longitud - 1];
@@ -152,16 +163,21 @@ using namespace std;
 				vector2[i] = local2.substr(i,2);
 			}
 			string buffer[25];
+			for(int f = 0; f < 25; ++f){
+				buffer[f] = "0"; 
+			}
 			int controlador = 0;
-			for(int i = 0; i < this->longitud; ++ i){
-				for(int n = 0; n < otra->longitud; ++n){
+			for(int i = 0; i < this->longitud - 1; ++ i){
+				for(int n = 0; n < otra->longitud - 1; ++n){
 					if(vector1[i] == vector2[n]){
-						buffer[i] = vector1[i];
 						for(int f = 0; f < 25; ++f){
-							if(buffer[f] == vector1[n] && controlador == 0 ){
-								++result;
+							if(buffer[f] == vector2[n]){
 								controlador = 1;
 							}
+						}
+						if(controlador == 0){
+							buffer[i] = vector1[i];
+							++result;
 						}
 						controlador = 0;
 					}	
@@ -169,4 +185,6 @@ using namespace std;
 			}
 			return result;
 		}	
+		
+		
 		

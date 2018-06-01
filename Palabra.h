@@ -48,8 +48,9 @@ class Palabra : public Elemento{
 		
 		std::istream& cargar(std::istream&);
 		
-		int calcularCardinalidad();
+		double calcularCardinalidad();
 		
-		int calcularUnion(Palabra*);
+		double calcularInterseccion(Palabra*);
+	
 };
 #endif
