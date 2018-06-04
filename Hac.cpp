@@ -1,5 +1,6 @@
 // Hac.cpp
 #include "Hac.h"
+#include "Vector.h"
 
 /** - Calcula la distancia entre ambos vectores restandole a 1 la similitud coseno obtenido entre ambos vectores */
 double Hac::distanciaDeVectores(Vector * v1, Vector * v2){
