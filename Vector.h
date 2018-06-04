@@ -15,6 +15,8 @@ class Vector : public Elemento{
 		ostream& imprimir(ostream&);
 	    istream& cargar(istream&);
 		double getValor(int);
+		double Vector::operator[](int indice); /** Método sobrecargado para usar la función getValor */
 		void setValor(double, int);
+		int getLength(); /** Devuelve la cantidad de celdas del vector double */
 };
 #endif
