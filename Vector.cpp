@@ -56,11 +56,35 @@ void Vector::setValor(double valor, int indice){
 		valores[indice] = valor;
 	}
 }
-		
-double Vector::getValor(int indice){
-	if(valores){
-		return valores[indice];
+
+/** - método sobrecargado que invoca la función getValor */
+double Vector::operator[](int indice){
+	return getValor(indice); /** devuelve el número en la determinada posición del vector */
+}
+
+/** - función que obtiene el valor almacenado en la posición indicada en el vector de doubles */
+double Vector::getValor(int indice){ /** recibe el índice con el cual buscar */
+	int valor = 0.0; /** Declaro e inicializo la variable local que almacenará el valor double del vector */
+	if(valores){ /** Si el puntero a vectores es válido, no nulo */
+		if( indice>=0 && indice<length ){ /** Si el índice recibido como parámetro está en el rango del vector */
+			valor = valores[indice]; /** Almacena el valor de la celda con el indice recibido */
+		}
+		else{
+			/** Si el índice se sale del rango del vector, muestra un mensaje de error en pantalla */
+			cerr << "El rango del vector es de 0 a " << length << ", el indice ingresado fue " << indice << "." << endl;
+		}
 	}
+	else{
+		/** Indica al usuario que no hay un vector de doubles asignado */
+		cerr << "No hay vector de numeros double asignado. Devuelve 0.0 por omision." << endl;
+	}
+	
+	return valor; /** devuelve el valor de la celda, o en su defecto 0.0 */
+}
+
+/** - devuelve la cantidad de celdas del vector double */
+int Vector::getLength(){
+	return length; /** devuelve el atributo que almacena el length del vector */
 }
 
  double Vector::distanciaMax(Vector* otro){
