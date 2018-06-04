@@ -3,6 +3,8 @@
 #ifndef _HAC_H
 #define _HAC_H
 
+#include "Vector.h"
+
 class HAC{
 	private:
 		double similitudCoseno(Vector * v1, Vector * v2); /** - Este método calcula la similitud que existe entre 2 vectores */
