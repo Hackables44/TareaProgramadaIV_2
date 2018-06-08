@@ -9,7 +9,8 @@ class Hac : public Agrupador{
 	private:
 		void crearMatrizDistancias(Elemento*,Elemento*);
 		double** matriz;
-		int obtenerTamayoLista(Lista*);
+		int tamayoLista;
+		void obtenerTamayoLista(Lista*);
 	public:
 		Hac();
 		~Hac();
