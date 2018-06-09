@@ -26,8 +26,8 @@ ostream & Lista::imprimir(ostream & salida){
 
 	if(primera!=0){
 	   salida << "{ ";	
-  	   Iterador elFinal = this->end();
-	   Lista::Iterador i = this->begin();
+  	   Iterator elFinal = this->end();
+	   Lista::Iterator i = this->begin();
 	   salida << *i;
 	   ++i;
 	   while(i != elFinal){
@@ -44,8 +44,8 @@ ostream & Lista::imprimir(ostream & salida){
 
 istream & Lista::cargar(istream & entrada){
 	if(primera!=0){
-  	   Lista::Iterador elFinal = this->end();
-	   for(Lista::Iterador i = this->begin() ; i != elFinal ; ++i){
+  	   Lista::Iterator elFinal = this->end();
+	   for(Lista::Iterator i = this->begin() ; i != elFinal ; ++i){
 		   entrada >> *i;
 	   }
 	}
@@ -105,7 +105,7 @@ Lista::Iterator Lista::begin(){
 }
 	   
 Lista::Iterator Lista::end(){
-   Lista::Iterator elFinal(); // El final es una posición después del último que siempre es nula
+   Lista::Iterator elFinal; // El final es una posición después del último que siempre es nula
    return elFinal;
 }
 
@@ -115,7 +115,9 @@ Lista::Lista(){
 }
 
 
-Lista::Lista( Elemento * elemento, ifstream &entrada, int n){
+Lista::Lista( Elemento * elemento, istream &entrada, int n){
+   primera=0;
+   ultima=0;
    for(int i=0; i<n; ++i){
       entrada >> elemento;
 	  (*this)+= elemento;
@@ -137,13 +139,13 @@ void  Lista::destruir(){
 		primera=0;
 		ultima=0;
 }
-Elemento & Lista::operator=( const Elemento & otra){
+Lista & Lista::operator=(Elemento & otra){
 	Lista * lista2 = dynamic_cast< Lista * >( &otra );
     if(lista2!=0){
 		this->destruir();
         Iterator elFinal = lista2->end();
 		for(Iterator i = lista2->begin(); i!=elFinal; ++i){
-			this->push_back( *i );
+			(*this)+= *i;
 		} 
 	}
 	return *this;
@@ -155,18 +157,21 @@ Lista::~Lista(){
 
 Lista * Lista::clonar(){
    Lista * nueva = new Lista();
-   *nueva = *this;
+   Iterator f = end();
+   for( Iterator i = begin(); i!=f; ++i){
+      *nueva+= *i;
+   }
    return nueva;
 }	   
 
-void Lista::aplanar(Lista & destino, Lista & origen){
+void Lista::aplanar(Lista & destino){
 	// aplana la lista origen y poner sus elementos ( que no son sub-listas ) en lista destino
-   Iterador finalOrigen = origen.end();
+   Iterator thisFinal = this->end();
    Lista * listaLocal = 0;
-   for(Iterator i = origen.begin(); i!=finalOrigen; ++i){
+   for(Iterator i = this->begin(); i!=thisFinal; ++i){
 	   listaLocal = dynamic_cast<Lista *>(*i);
 	   if(listaLocal){
-		   aplanar(destino,listaLocal);
+		   listaLocal->aplanar(destino);
 	   }
 	   else {
 		   destino+= *i;
@@ -179,17 +184,17 @@ double Lista::distancia(Elemento * elemento){
    Lista lista1;
    Lista lista2;
    double distanciaPromedio = 1.0;
-   aplanar(lista1,*this);
+   this->aplanar(lista1);
    if(otraLista){
-	   aplanar(lista2,otraLista);
+	   otraLista->aplanar(lista2);
    }
    else {
 	   lista2+=elemento;
    }
    int n = 0;
    double suma = 0.0;
-   Iterador final1 = lista1.end();
-   Iterador final2 = lista2.end();
+   Iterator final1 = lista1.end();
+   Iterator final2 = lista2.end();
 
    for(Iterator i = lista1.begin(); i!=final1; ++i){
 	    for(Iterator j = lista2.begin(); j!=final2; ++j){
@@ -212,6 +217,7 @@ Lista & Lista::operator+=(Elemento * elemento){
    else {
 	   this->push_front(elemento);
    }
+   return *this;
 }  // Es un push_back que agrega al final de la lista 
 	   
 Lista & Lista::insertar(Lista::Iterator& i, Elemento * elemento){
@@ -226,7 +232,7 @@ Lista & Lista::insertar(Lista::Iterator& i, Elemento * elemento){
        }		  
 	   else {
 		   if(i.actual==0){
-			   push_back(elemento);
+			   (*this)+=elemento;
 		   }
 		   else {
 			   Celda * nueva = new Celda(elemento);
@@ -237,9 +243,9 @@ Lista & Lista::insertar(Lista::Iterator& i, Elemento * elemento){
 			   // nueva->siguiente = i.actual;
 			   //
 			   // VERSION GRUPO 04 ES MÁS LIMPIA...
-			   // LA NUEVA SE COLA APUNTANDOLE A SU ANTERIOR Y SIGUIENTE...USANDO EL ITERADOR
+			   // LA NUEVA SE COLA APUNTANDOLE A SU ANTERIOR Y SIGUIENTE...USANDO EL Iterator
 			   // LUEGO LES DICE QUE ELLA ESTÁ ANTES Y DESPUÉS RESPECTIVAMENTE
-			   // EL ITERADOR QUEDA APUNTANDO DONDE ESTABA
+			   // EL Iterator QUEDA APUNTANDO DONDE ESTABA
 			   nueva->anterior = i.actual->anterior;
 			   nueva->siguiente = i.actual;
 			   nueva->anterior->siguiente = nueva;
@@ -292,6 +298,7 @@ Lista & Lista::push_front(Elemento * elemento){
 		primera->anterior = nueva;
 		primera = nueva;
 	}
+	return *this;
 }
 
 Elemento * Lista::pop_front(){
