@@ -6,18 +6,18 @@
 #include "Lista.h"
 #include "Agrupador.h"
 class Hac : public Agrupador{
-		
+	
 	private:
-		
-		double** matriz;
-		int tamayoLista;
-		void obtenerTamayoLista(Lista*);
+		void crearMatrizDistancias(Lista*); // metodo que crea una matriz con la informacion de las distancias para acceso rapido
+		double** matriz; //matriz de distancias 
+		int tamayoLista; //variable del tamayo de lista que se esta utilizando
+		Lista* listaDefinitiva; //es el puntero a lista que se planea devolver como resultado del agrupador
+		void obtenerTamayoLista(Lista*); //metodo necesario ya que el tamayo de la lista es conveniente tenerlo a mano
 	public:
-		void crearMatrizDistancias(Lista*);
 		Hac();
-		Hac(Lista*);
 		~Hac();
 		Lista* agrupar(Lista*);
+		Lista* mejorVecino(Lista*); //por cuestion de prueba lo tengo publico pero finalizada la clase se pondra privado
 };
 
 #endif
