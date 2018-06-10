@@ -4,6 +4,7 @@
 #include "Lista.h"
 
 class Visualizador : public Producto {
+   public:
    	   virtual void visualizar( Lista * )=0;
 };
 
