@@ -26,16 +26,16 @@ Hilera::~Hilera(){
 	
 /** - devuelve un puntero a un objeto con los mismo datos que este objeto hilera */
 Hilera * Hilera::clonar(){
-	Hilera * ptr= new Hilera(); /** crea un objeto en la memoria dinámica, y almacena su referencia por medio de un puntero */
+	Hilera * ptrHilera= new Hilera(); /** crea un objeto en la memoria dinámica, y almacena su referencia por medio de un puntero */
 	
 	/** copia los datos */
-	int length = this->getLength(); /** obtiene el length*/
-	ptr->setLength(length); /** copia la cantidad de celdas de sus vectores (es la misma cantidad) */
-	ptr->palabrasDiferentes(this->palabrasDiferentes, length); /** copia las palabras del vector de strings de este objeto */
-	ptr->setFrecuenciaPalabras(this->frecuenciaPalabras, length); /** copia las frecuencias de palabras del vector de enteros de este objeto */
+	int length = this->getLength(); /** obtiene el length */
+	ptrHilera->setLength(length); /** copia la cantidad de celdas de sus vectores (es la misma cantidad) */
+	ptrHilera->setPalabrasDiferentes(this->palabrasDiferentes, length); /** copia las palabras del vector de strings de este objeto */
+	ptrHilera->setFrecuenciaPalabras(this->frecuenciaPalabras, length); /** copia las frecuencias de palabras del vector de enteros de este objeto */
 		
 	/** devuelve el puntero del nuevo objeto */
-	return ptr;
+	return ptrHilera;
 }
 
 /** - recibe un puntero a vector de string y la cantidad de celdas que posee */
@@ -470,14 +470,14 @@ ostream & Hilera::imprimir(ostream & salida){
 istream & Hilera::cargar(istream & entrada){
 	int length = 0; /** declaro la variable length y la inicializo en 0 */
 	entrada >> length; /** guardo el length del vector */
-	string vectorDeHileras[length]; /** genero un vector en el stack/pila */
+	string * vectorDeHileras = new string[length]; /** genero un vector en el stack/pila */
 	
 	for(int i=0; i<length; ++i){ /** recorre el vector */
 		entrada >> vectorDeHileras[i]; /** asigno las palabras al vector */
 	}
 	
 	// Hilera * ptr = &vectorDeHileras;
-	setPalabras(&vectorDeHileras, length);/** invoco al método para asignar valores al atributo vector de palabras */
+	setPalabras(vectorDeHileras, length);/** invoco al método para asignar valores al atributo vector de palabras */
 	
 	return entrada; /** devuelvo el objeto, podría aún necesitarse si aún contiene los flujos de bytes para otro objetos de tipo Hilera */
 }
