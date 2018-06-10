@@ -39,7 +39,8 @@ Hilera * Hilera::clonar(){
 	return ptrHilera;
 }
 
-/** - recibe un puntero a vector de string y la cantidad de celdas que posee */
+/** - recibe un puntero a vector de string y la cantidad de celdas que posee, filtra las palabras de forma que el vector que contendrá
+las hileras no están repetidos, y las veces que aparece la palabra en el vector recibido se indica por medio de la frecuencia (en un vector de enteros). */
 void Hilera::setPalabras(string * palabras, int length){
 	if(palabras){ /** si el puntero es válido */
 		if(length){ /** si el length es un número positivo, muestra en pantalla la cantidad de celdas que tomará en cuenta */
