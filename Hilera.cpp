@@ -26,16 +26,16 @@ Hilera::~Hilera(){
 	
 /** - devuelve un puntero a un objeto con los mismo datos que este objeto hilera */
 Hilera * Hilera::clonar(){
-	Hilera * ptr= new Hilera(); /** crea un objeto en la memoria dinámica, y almacena su referencia por medio de un puntero */
+	// Hilera * ptr= new Hilera(); /** crea un objeto en la memoria dinámica, y almacena su referencia por medio de un puntero */
 	
-	/** copia los datos */
-	int length = this->getLength(); /** obtiene el length*/
-	ptr->setLength(length); /** copia la cantidad de celdas de sus vectores (es la misma cantidad) */
-	ptr->palabrasDiferentes(this->palabrasDiferentes, length); /** copia las palabras del vector de strings de este objeto */
-	ptr->setFrecuenciaPalabras(this->frecuenciaPalabras, length); /** copia las frecuencias de palabras del vector de enteros de este objeto */
+	// /** copia los datos */
+	// int length = this->getLength(); /** obtiene el length*/
+	// ptr->setLength(length); /** copia la cantidad de celdas de sus vectores (es la misma cantidad) */
+	// ptr->palabrasDiferentes(this->palabrasDiferentes, length); /** copia las palabras del vector de strings de este objeto */
+	// ptr->setFrecuenciaPalabras(this->frecuenciaPalabras, length); /** copia las frecuencias de palabras del vector de enteros de este objeto */
 		
-	/** devuelve el puntero del nuevo objeto */
-	return ptr;
+	// /** devuelve el puntero del nuevo objeto */
+	// return ptr;
 }
 
 /** - recibe un puntero a vector de string y la cantidad de celdas que posee */
@@ -468,6 +468,7 @@ ostream & Hilera::imprimir(ostream & salida){
 
 /** - recibe como entrada el objeto ifstream que contiene los bytes del archivo cargado de hileras */
 istream & Hilera::cargar(istream & entrada){
+	int length = 0; /** declaro la variable length y la inicializo en 0 */
 	entrada >> length; /** guardo el length del vector */
 	string vectorDeHileras[length]; /** genero un vector en el stack/pila */
 	
