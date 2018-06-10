@@ -63,6 +63,7 @@ Hac::~Hac(){
 
 Lista* Hac::mejorVecino(Lista* listaOriginal){
 	double almacenDeVecinos[tamayoLista]; //almacena el valor de la distancia mas cercana del mejor vecino
+	Lista* listaConNuevosValores = new Lista; // esta sera la lista a la que le agregue todas las listas creadas y los elementos que no se agruparon en esta vuelta
 	double buscadorDeMejorVecino = 1.0; //distancia por default del vecino ya que es la maxima
 	int referenciaDeQuienFueElVecino[tamayoLista]; //para saber quien es el mejor vecino de cada elemento
 	for(int f = 0; f < tamayoLista; ++f){
@@ -115,9 +116,21 @@ Lista* Hac::mejorVecino(Lista* listaOriginal){
 				++totalDeListasUtilizadas; //aumento esta variable para cambiar de puntero en el vector de punteros a lista y tener un control de cuantas existen 
 				cout << "Llego :" << totalDeListasUtilizadas << " de veces" << endl;
 			}
+		}else{ //para tomar en cuenta los elementos que no se pudieron agrupar
+			while(ubicacionDelIterador > f){ //while que me permite ubicar el iterator en el lugar exacto donde lo necesito
+				--ubicacionDelIterador;
+				--i;
+			}
+			while(ubicacionDelIterador < f){ //while que me permite ubicar el iterator en el lugar exacto donde lo necesito
+				++ubicacionDelIterador;
+				++i;
+			}
+			if(ubicacionDelIterador == f){  //me sirve para berificar si el while correspondiente realizo bien su trabajo
+				*listaConNuevosValores += *i;
+			}
 		}
 	}
-	Lista* listaConNuevosValores = new Lista; // esta sera la lista a la que le agregue todas las listas creadas y LOS ELEMENTOS QUE NO SE AGRUPARON, AUN NO HE IMPLENTADO LO DE LOS ELEMENTOS
+	
 	for(int n = 0; n <= totalDeListasUtilizadas; ++n){
 		*listaConNuevosValores += bufferDeListas[n]; //aqui se agrega las listas
 		Lista::Iterator finalTemporal = bufferDeListas[n]->end();
