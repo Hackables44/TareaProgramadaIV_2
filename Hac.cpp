@@ -7,8 +7,8 @@ using namespace std;
 
 Hac::Hac(){
 	matriz = 0; //inicializacion de de la matriz en cero;
-	tamayoLista = 0; 
-	listaDefinitiva = 0;
+	tamayoLista = 0;  //inicializacion del tamayo de la lista con 0
+	listaDefinitiva = 0; //inicializacion de la lista definitiva con 0
 }
 
 void Hac::crearMatrizDistancias(Lista* lista){
@@ -21,10 +21,10 @@ void Hac::crearMatrizDistancias(Lista* lista){
 		matriz[count1] = new double[tamayoLista];
 		for(Lista::Iterator n = lista->begin(); n != f; ++n){
 			matriz[count1][count2] = (*i)->distancia(*n); //voy agregando los valores de las distancias en los lugares correspondientes
-			//cout << "matriz: " <<  matriz[count1][count2] << "   ";    PARA FUTURAS PRUEBAS LA PODRIA DESCOMENTAR
+			//cout << "matriz: " <<  matriz[count1][count2] << "   ";    PARA FUTURAS PRUEBAS LA PODRIA DESCOMENTAR CON LO DE 3 LINEAS ABAJO
 			++count2; // se aumenta el contador para ubicarnos en otra columna
 		}
-		//cout << endl; 
+		//cout << endl; // PARA FUTURAS PRUEBAS DESCOMENTAR CON LO DE 3 LINEAS ARRIBA
 		count2 = 0; // se reinicia el contador de columnas y se pasa a la siguiente fila 
 		++count1; //aqui se pasaria a la siguiente fila
 	}
@@ -34,14 +34,14 @@ void Hac::obtenerTamayoLista(Lista* lista){
 	int count = 0; //se ira aumentando conforme avanza el for que va desde el principio de la lista hasta el fin
 	Lista::Iterator f = lista->end();
 	for(Lista::Iterator i = lista->begin(); i != f; ++i){
-		++count;
+		++count; //aumento del contador de elementos de la lista
 	}
-	tamayoLista = count; //devuelve el tamayo de la lista por medio del resultado del for anterior que la recorrio por medio de los iteradores
+	tamayoLista = count; //devuelve el tamayo de la lista por medio del resultado del for anterior que la recorrio por medio de los iteradores 
 }
 
 Lista* Hac::agrupar(Lista* lista){ 
 	if(listaDefinitiva == 0){ //si este metodo se esta haciendo por primera vez inicializo el puntero de la lista definitiva
-		Lista* listaDefinitiva = new lista;
+		Lista* listaDefinitiva = new Lista; //inicializacion de la lista que quedara agrupada
 	}
 	crearMatrizDistancias(lista); // crea la matriz con las distancias de acceso rapido
 	if(tamayoLista > 1){ //condicion de parada del recursivo, significa que ya la lista tiene todos los elementos agrupados
@@ -75,74 +75,63 @@ Lista* Hac::mejorVecino(Lista* listaOriginal){
 		}
 		almacenDeVecinos[f] = buscadorDeMejorVecino; //se asigna en el vector el valor oficial del mejor vecino
 		buscadorDeMejorVecino = 1; //lo vuelvo a tomar como 1 por ser la mayor distancia posible por default
-		cout << "del numero " << f << " es: " << almacenDeVecinos[f] << " y la referencia de vecino es:" << referenciaDeQuienFueElVecino[f] << endl;
 	}
 	int ubicacionDelIterador = 0; //variable entero utilizada para saber en el numero de posicion de la lista que se encuentra el iterator
 	int totalDeListasUtilizadas = 0; //variable que me sirve para manipular el buffer de listas
 	Lista** bufferDeListas; //buffer de listas, porque no se cuantas listas ocupare en en la realizacion
+	int controlador = 0; //variable que me permite controlar por cual iteracion de agregar el elemento que agrupare para asi pasar al siguiente puntero en el vector de punteros de buffer
 	bufferDeListas = new Lista*[25]; //le asigno al puuntero a punteros de lista un vector de punteros a lista 
 	Lista::Iterator i = listaOriginal->begin(); //el valor begin de la lista original que entra en el metodo
 	for(int f = 0; f < tamayoLista; ++f){
-		cout << "entro al for: " << f << " veces" << endl;  
-		cout << "referencia " << f << " y referencia de la referencia: " << referenciaDeQuienFueElVecino[referenciaDeQuienFueElVecino[f]] << endl; 
 		if(f == referenciaDeQuienFueElVecino[referenciaDeQuienFueElVecino[f]]){ //quiere decir que si el mejor vecino es mutuo entra, ATENCIOOOONNNNNN ESTE ALGORITMO ES EL QUE ME ESTA DANDO PROBLEMAS YA QUE ENTRA 2 VECES CON LOS MISMO VALORES PORQUE SI EL 2 Y EL 3 SU DISTANCIA DE MEJOR ES MUTUA ENTRA PARA CUANDO NOS REFERIMOS AL 2 Y TAMBIEN PARA EL 3
 			while(ubicacionDelIterador < referenciaDeQuienFueElVecino[f]){ //while que me permite ubicar el iterator en el lugar exacto donde lo necesito
-				cout << "se entro al while de aumentar para la referencia de la referencia" << "y la ubicacion del iterador antes de entrar es " << ubicacionDelIterador << endl; 
-				++ubicacionDelIterador;
-				++i;
+				++ubicacionDelIterador; //aumento de la variable que me dice la posicion del iterator para mantenerlo ubicado
+				++i; //aumento de la posicion del iterator
 			}
 			while(ubicacionDelIterador > referenciaDeQuienFueElVecino[f]){ //while que me permite ubicar el iterator en el lugar exacto donde lo necesito
-				cout << "se entro al while de disminuir para la referencia de la referencia" << "y la ubicacion del iterador antes de entrar es " << ubicacionDelIterador << endl; 
-				--ubicacionDelIterador;
-				--i;
+				--ubicacionDelIterador; //decremento de la variable que me dice la posicion del iterator para mantenerlo ubicado
+				--i; //decremento de la posicion del iterator
 			}
 			if(ubicacionDelIterador == referenciaDeQuienFueElVecino[f]){ //me sirve para berificar si el while correspondiente realizo bien su trabajo
-				cout << "se agrego a la lista a la referencia de la referencia" << "y la ubicacion del iterador antes de entrar es " << ubicacionDelIterador  << endl;
-				bufferDeListas[totalDeListasUtilizadas] = new Lista; //necesitoo crear la instancia de lista nueva a la que apunta el puntero dentro del vector a punteros a lista 
+				++controlador; // controlar por cual iteracion voy para llevar control de la accion a tomar
+				if(controlador == 1){ //cuando es uno significa que debo hacerle un new a la casilla correspondiente del vector de punteros a lista
+					bufferDeListas[totalDeListasUtilizadas] = new Lista; //necesitoo crear la instancia de lista nueva a la que apunta el puntero dentro del vector a punteros a lista 
+				}
 				*bufferDeListas[totalDeListasUtilizadas] += *i; //se agrega el elemento a la lista correspondiente del buffer
-			}
-			while(ubicacionDelIterador < f){ //while que me permite ubicar el iterator en el lugar exacto donde lo necesito
-				cout << "se entro al while de aumentar para la referencia" << "y la ubicacion del iterador antes de entrar es " << ubicacionDelIterador << endl; 
-				++ubicacionDelIterador;
-				++i;
-			}
-			while(ubicacionDelIterador > f){ //while que me permite ubicar el iterator en el lugar exacto donde lo necesito
-				cout << "se entro al while de disminuir para la referencia" << "y la ubicacion del iterador antes de entrar es " << ubicacionDelIterador  << endl;
-				--ubicacionDelIterador;
-				--i;
-			}
-			if(ubicacionDelIterador == f){ //me sirve para berificar si el while correspondiente realizo bien su trabajo
-				*bufferDeListas[totalDeListasUtilizadas] += *i; //se agrega el elemento a la lista correspondiente del buffer
-				++totalDeListasUtilizadas; //aumento esta variable para cambiar de puntero en el vector de punteros a lista y tener un control de cuantas existen 
-				cout << "Llego :" << totalDeListasUtilizadas << " de veces" << endl;
+				if(controlador == 2){ //cuando es 2 debo aumentar el contador de total de lista utilizadas y reiniciar el controlador
+					controlador = 0; //se reinicia
+					++totalDeListasUtilizadas; //para pasar al siguiente puntero en el vector de punteros a lista del buffer 
+				}
 			}
 		}else{ //para tomar en cuenta los elementos que no se pudieron agrupar
 			while(ubicacionDelIterador > f){ //while que me permite ubicar el iterator en el lugar exacto donde lo necesito
-				--ubicacionDelIterador;
-				--i;
+				--ubicacionDelIterador; //decremento de la variable que me dice la posicion del iterator para mantenerlo ubicado
+				--i; //decremento de la posicion del iterator
 			}
 			while(ubicacionDelIterador < f){ //while que me permite ubicar el iterator en el lugar exacto donde lo necesito
-				++ubicacionDelIterador;
-				++i;
+				++ubicacionDelIterador; //aumento de la variable que me dice la posicion del iterator para mantenerlo ubicado
+				++i; //aumento de la posicion del iterator
 			}
 			if(ubicacionDelIterador == f){  //me sirve para berificar si el while correspondiente realizo bien su trabajo
-				*listaConNuevosValores += *i;
+				*listaConNuevosValores += *i; //agregando el valor correspondiente a la lista definitiva
 			}
 		}
 	}
-	
-	for(int n = 0; n <= totalDeListasUtilizadas; ++n){
-		*listaConNuevosValores += bufferDeListas[n]; //aqui se agrega las listas
-		Lista::Iterator finalTemporal = bufferDeListas[n]->end();
-		for(Lista::Iterator inicioTemporal = bufferDeListas[n]->begin(); inicioTemporal != finalTemporal; ++inicioTemporal ){
-			cout << "el numero de lista es " << n << " y sus valores son: " << *inicioTemporal << endl;
- 		}
-	}
-	for(int i = 0; i <= totalDeListasUtilizadas; ++i){
-		delete [] bufferDeListas[i]; //destruyo todas las listas a las que les hice new en el buffer
+	for(int i = 0; i < totalDeListasUtilizadas; ++i){
+		*listaConNuevosValores += bufferDeListas[i]; //aqui se agrega las listas
+		delete bufferDeListas[i]; //destruyo todas las listas a las que les hice new en el buffer
 	}
 	delete bufferDeListas; //destruyo al buffer
 	bufferDeListas = 0; //no dejo rastro a lo que le apuntaba el buffer
-	return listaConNuevosValores; //retorno la lista nueva 
+	// -----------------------------------------------------------------DESCOMENTAR SI SE QUIERE VER COMO SE VAN AGRUPANDO -----------------------------------------------------------
+	/* Lista::Iterator finalDefinitivo = listaConNuevosValores->end();
+	int count = 0;
+	cout << "Lista Definitiva: \n"; 
+	for(Lista::Iterator inicioDefinitivo = listaConNuevosValores->begin(); inicioDefinitivo != finalDefinitivo; ++inicioDefinitivo){
+		cout << "elemento numero " << count << ": " << *inicioDefinitivo << endl; 
+		++count;	
+	}
+	cout << "\n\n\n"; */
+	return listaConNuevosValores; //retorna la lista nueva con los valores ya agrupados
 }
 

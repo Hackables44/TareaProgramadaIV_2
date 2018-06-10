@@ -59,8 +59,8 @@ for( Lista::Iterator i = lista->begin(); i!= finalLista ; ++i){
   cout << &nula << endl; */
   Hac hac;
   Lista* listaPrueba = new Lista;
-  hac.crearMatrizDistancias(lista);
-  listaPrueba = hac.mejorVecino(lista);
+  //hac.crearMatrizDistancias(lista);
+  listaPrueba = hac.agrupar(lista);
   delete lista;
   delete otra;
   delete diez;
