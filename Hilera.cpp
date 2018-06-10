@@ -468,6 +468,7 @@ ostream & Hilera::imprimir(ostream & salida){
 
 /** - recibe como entrada el objeto ifstream que contiene los bytes del archivo cargado de hileras */
 istream & Hilera::cargar(istream & entrada){
+	int length = 0; /** declaro la variable length y la inicializo en 0 */
 	entrada >> length; /** guardo el length del vector */
 	string vectorDeHileras[length]; /** genero un vector en el stack/pila */
 	
