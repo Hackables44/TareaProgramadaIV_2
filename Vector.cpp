@@ -19,8 +19,8 @@ Vector* Vector::clonar(){
 }   
  	    
 double Vector::distancia(Elemento* otro){
-	// separar por funciones el pitágoras, la distancia máxima y división general
-	//distancia entre puntos en el plano cartesiano
+	/** separar por funciones el pitágoras, la distancia máxima y división general */
+	/** distancia entre puntos en el plano cartesiano */
 	double distancia = 1.0;
 	Vector* vectorPtr = dynamic_cast<Vector*>(otro);
 	if(vectorPtr->length == this->length){
@@ -96,13 +96,13 @@ int Vector::getLength(){
 }
 
  double Vector::distanciaMax(Vector* otro){
-	// idea: obtener la distancia máxima por medio de una función aparte que comprare las distancias de todos los elementos
+	/** idea: obtener la distancia máxima por medio de una función aparte que comprare las distancias de todos los elementos */
 	double distanciaMax = 0.0; // la distancia mayor entre 2 elementos en el plano cartesiano
 	double mayor = 0;
 	for(int i = 0; i < length; ++i){
 		distanciaMax = this->valores[i] - otro->valores[i];
 		if(distanciaMax < 0){
-			distanciaMax *= -1; //porque una distancia no puede ser negativa asi que le hago valor absoluto
+			distanciaMax *= -1; /** porque una distancia no puede ser negativa asi que le hago valor absoluto */
 		}
 		if(distanciaMax > mayor){
 			mayor = distanciaMax;
@@ -112,7 +112,7 @@ int Vector::getLength(){
 }	 
 
 double Vector::distanciaPlanoCartesiano(Vector* otro){
-	double pendiente = 0.0; // m = (y2-y1)/(x2-x1) hasta llegar a n
+	double pendiente = 0.0; /** m = (y2-y1)/(x2-x1) hasta llegar a n */
 	double cuadrado = 0.0;
 	for(int n = 0; n < length; ++n){
 		cuadrado += (otro->valores[n] - this->valores[n])*(otro->valores[n] - this->valores[n]);
