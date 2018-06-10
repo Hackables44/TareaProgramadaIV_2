@@ -46,9 +46,17 @@ ostream& Vector::imprimir(ostream& salida){
 	return salida;
 }
 	    
-istream& Vector::cargar(istream& entrada){  //no se si lo hice bien, ya que nunca he implementado cargar
-	// no se muy bien lo que se cargaria
-	return entrada;
+istream& Vector::cargar(istream& entrada){
+	int length = 0; /** declaro la variable length y la inicializo en 0 */
+	entrada >> length; /** guardo el length del vector */
+	
+	double numero = 0.0; /** declara e inicializa la variable que almacenará temporalmente los doubles y lo pasa a la función setValor */
+	for(int i=0; i<length; ++i){ /** recorre el vector */
+		entrada >> numero; /** almaceno el double del vector */
+		setValor(numero, i); /** le paso el número y el índice */
+	}
+	
+	return entrada; /** devuelvo el objeto, podría aún necesitarse si aún contiene los flujos de bytes para otro objetos de tipo Hilera */
 }
 		
 void Vector::setValor(double valor, int indice){
