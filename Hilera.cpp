@@ -428,7 +428,9 @@ double Hilera::calcularProductoPunto(Hilera * hilera2){ /** Recibe los punteros 
 	return productoPunto; /** Devuelve el producto punto de los vectores o en su defecto 0.0 */
 }
 
-/** - Calcula la norma del vector recibido como parámetro, recibe */
+/** - Calcula la norma del vector recibido como parámetro, utiliza la fórmula de la raíz cuadrada de la suma de valores numéricos
+ elevados al cuadrado. No utilizaremos los vectores auxiliares utilizado en el método para calcular producto punto, dado que las celdas
+ respectivas con valor 0, no afectaran el resultado porque 0 elevado a cualquier número es 0. */
 double Hilera::calcularNorma(Hilera * hilera){ /** recibe el puntero del vector al cual calcular la norma */
 	/** declaración de las variables locales a utilizar */
 	double raizCuadrada = 0.0; /** almacenará la raíz cuadrada, para calcular la norma del vector*/
