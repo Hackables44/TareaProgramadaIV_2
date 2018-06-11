@@ -264,7 +264,8 @@ double Hilera::distancia(Elemento * otro){ /** recibe un puntero a Elemento */
 	return distancia;
 }
 
-/** - Este método calcula la similitud que existe entre 2 vectores */
+/** - Este método calcula la similitud que existe entre 2 vectores, invocando a los siguientes métodos para usar la fórmula:
+producto punto de ambos vectores, sobre el producto de la norma de cada vector. */
 double Hilera::similitudCoseno(Hilera * hilera2){
 	// cout << "Entra al metodo similitudCoseno " << endl; /** debugging */
 	double productoPunto = calcularProductoPunto(hilera2); /** invoca al método que calcula el producto punto ambos vectores y almacena el resultado */
