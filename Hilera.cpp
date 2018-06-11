@@ -128,7 +128,7 @@ void Hilera::setLength(int length){
 	this->length = length; /** asigno el valor al atributo que almacena la cantidad de celdas necesarias para guardas las palabras diferentes */
 }
 
-/** - establece el vector de palabras diferentes por medio de un puntero a vector de string y su cantidad de celdas, el strign recibido lo pasa a minúscula */
+/** - establece el vector de palabras diferentes por medio de un puntero a vector de string y su cantidad de celdas, el string recibido lo pasa a minúscula */
 void Hilera::setPalabrasDiferentes(string * palabrasDiferentes, int length){
 
 	if(this->palabrasDiferentes){ /** si el vector atributo apunta a algo */
