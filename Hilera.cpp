@@ -281,7 +281,11 @@ double Hilera::similitudCoseno(Hilera * hilera2){
 	return coseno; /** devuelve el coseno obtenido */
 }
 
-/** - Calcula y devuelve el producto punto de 2 vectores de palabras */
+/** - Calcula y devuelve el producto punto de 2 vectores de palabras, para esto homogeniza ambos vectores por medio de vectores auxiliares
+para las palabras y frecuencias; estas almacenadas temporalmente para lograr efectuar el producto punto, ya que deben tener el mismo length
+y se hace una equivalencia filtrando las palabras y colocándolas en un orden establecido para efectuar correctamente la operación mediante
+sus frecuencias. De paso para ir controlando los resultados, se ha añadido también en esta parte impresiones en pantalla que muestran los valores
+que obtienen todos los vectores. */
 double Hilera::calcularProductoPunto(Hilera * hilera2){ /** Recibe los punteros de los vectores. */
 	// cout << "Entra al metodo calcularProductoPunto. " << endl; /** debugging */
 	double productoPunto = 0.0; /** Variable que almacenará el producto punto de los 2 vectores */
