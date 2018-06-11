@@ -1,3 +1,0 @@
-cd C:\Users\LABRU01\Downloads\Tarea3PolimorfismoV5.0
-g++ *.cpp -o compilado
-compilado
