@@ -27,7 +27,7 @@ class Hilera : public Elemento{
 		void setFrecuenciaPalabras(int * frecuenciaPalabras, int length); /** - establece el vector de palabras diferentes por medio de un puntero a vector de entero y su cantidad de celdas */
 	
 		int getLength(); /** - devuelve el length de los vectores(palabras y sus frecuencias) */
-		int operator[](int indice); /** - método sobrecargado para usar la función getFrecuencia */
+		int operator[](int indice); /** - método sobrecargado que invoca la función getFrecuencia, pasandole el índice para buscar la frecuencia en el vector de enteros */
 		int getFrecuencia(int indice); /** - obtiene la frecuencia de una palabra acorde con su posición en el vector de strings */
 		string getPalabra(int indice); /** - obtiene la palabra en el vector de strings */
 
