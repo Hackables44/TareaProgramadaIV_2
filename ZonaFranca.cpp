@@ -1,4 +1,5 @@
 #include "Fabrica.h"
+#include "ZonaFranca.h"
 #define MAXIMO 100  // SOLO PUEDEN CAMBIAR 
 
 // DEBE HABER UN .H PARA CADA FABRICA 3 DE CADA TIPO
