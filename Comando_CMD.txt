@@ -1,0 +1,3 @@
+cd C:\Users\LABRU01\Downloads\TareaProgramadaIII-version_19
+g++ *.cpp -o compilado
+compilado

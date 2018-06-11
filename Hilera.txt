@@ -1,0 +1,6 @@
+﻿Hilera
+4
+2 Perro Gato
+4 Perro Perro Perro Gato
+4 Gato Gato Gato Perro
+4 Perro Perro Gato Gato
