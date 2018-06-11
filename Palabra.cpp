@@ -1,6 +1,6 @@
 #include "Palabra.h"
 #include <iostream>
-#include <string.h> /** libreria para poder utilizar los strings */
+#include <string.h> //libreria para poder utilizar los strings 
 #include <fstream>
 #include <stdio.h>
 #include <ctype.h>
@@ -8,18 +8,18 @@
 
 using namespace std;
 
-		/** Constructor de la clase Palabra */
+		//Constructor de la clase Palabra
 		Palabra::Palabra(){
 			palabra = 0;
 			longitud = 0;
 		}
 		
-		/** Constructor por parametro de la clase Palabra */
+		//Constructor por parametro de la clase Palabra
 		Palabra::Palabra(const char* palabra){
 			this->setPalabra(palabra);
 		}
 		
-		/** Constructor por copia de la clase Palabra */
+		//Constructor por copia de la clase Palabra
 		Palabra::Palabra(const Palabra& otro){
 			this->setPalabra(otro.palabra);
 		}
@@ -36,7 +36,7 @@ using namespace std;
 			return palabraPtr;
 		}
 		
-		/** Sobrecarga del operador == para ver si la palabra ya existe o no, 0 es false y cualquier otro numero es true */
+		//Sobrecarga del operador == para ver si la palabra ya existe o no, 0 es false y cualquier otro numero es true
 		int Palabra::operator==(const Palabra& otro){
 			int result = 0;
 			if(strcmp(palabra,otro.palabra) != 0){
@@ -48,15 +48,15 @@ using namespace std;
 			return result;
 		}
 		
-		double Palabra::distancia(Elemento* otro){ /**  En si ya este metodo esta completo no se porque.... */
+		double Palabra::distancia(Elemento* otro){ // En si ya este metodo esta completo no se porque....
 			double distanciaDeBiagramas = 1.0;
 			Palabra* local1 = dynamic_cast<Palabra*>(otro);
 			distanciaDeBiagramas = 1 - ((2 * this->calcularInterseccion(local1)) / (this->calcularCardinalidad() + local1->calcularCardinalidad()));
-			/** sigo sin saber porque lo de arriba no me da double pero ya los metodos se supone que estan bien */
+			//sigo sin saber porque lo de arriba no me da double pero ya los metodos se supone que estan bien 
 			return distanciaDeBiagramas;	
 		}
 		
-		/** Sobrecarga del operador + que en este caso lo usaremos para concatenar Palabras */
+		//Sobrecarga del operador + que en este caso lo usaremos para concatenar Palabras
 		Palabra Palabra::operator+(Palabra& otro){
 			int newLongitud = this->getLongitud() + otro.getLongitud();
 			char* newPalabra = new char[newLongitud];
@@ -76,7 +76,7 @@ using namespace std;
 			return newPalabra;
 		}
 		
-		/** Sobrecarga del operador = para asignar una palabra a otra */
+		//Sobrecarga del operador = para asignar una palabra a otra
 		Palabra& Palabra::operator=(const Palabra& otro){
 			this->setPalabra(otro.palabra);
 			return *this;	

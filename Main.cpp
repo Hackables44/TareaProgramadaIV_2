@@ -6,6 +6,9 @@ using namespace std;
 #include "Agrupador.h"
 #include "Visualizador.h"
 #include "Lista.h"
+#include <fstream>
+#include <string>
+
 
 int main( int argc, char ** argv){
    if(argc < 5){
@@ -20,6 +23,10 @@ int main( int argc, char ** argv){
 	  const char * nombreAgrupador = argv[2];
 	  const char * nombreVisualizador = argv[3];
 	  const char * nombreArchivo = argv[4];
+	  
+	  //const char * elemento = "elemento";
+	  //const char * agrupador = "agrupador";
+	  //const char * visualizador = "visualizador";
 	  
       ZonaFranca zonaFranca; // Solo pueden agregar Fabricas en constructor ZonaFranca() de ZonaFranca.cpp
 	  // La Franca destruye la Fabricas
@@ -41,9 +48,16 @@ int main( int argc, char ** argv){
 		  Agrupador * agrupador = dynamic_cast<Agrupador *>(agrupadores->producir());
 		  Visualizador * visualizador = dynamic_cast<Visualizador *>(visualizadores->producir());	  
 		  
+		  ifstream entrada;
+		  entrada.open(nombreArchivo);
+	
+		  int n;
+		  entrada >> n;
+		  
 		  
 		  // Insertar una copia de cada elemento obtenido desde el archivo nombreArchivo
-		  Lista * lista = new Lista( elemento, nombreArchivo);
+		  Lista * lista = new Lista( elemento, entrada, n);
+		  
 
 		  Lista * grupos = agrupador->agrupar(lista);
 		  

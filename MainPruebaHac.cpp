@@ -1,7 +1,6 @@
 #include "Lista.h"
 #include "Enterito.h"
 #include "Hac.h"
-#include "Svg.h"
 #include<iostream>
 using namespace std;
 
@@ -62,8 +61,6 @@ for( Lista::Iterator i = lista->begin(); i!= finalLista ; ++i){
   Lista* listaPrueba = new Lista;
   //hac.crearMatrizDistancias(lista);
   listaPrueba = hac.agrupar(lista);
-  Svg svg;
-  svg.visualizar(listaPrueba);
   delete lista;
   delete otra;
   delete diez;

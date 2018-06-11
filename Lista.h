@@ -2,6 +2,7 @@
 #define _ListaPolimorfica
 #include<iostream>
 #include "Elemento.h"
+
 // EN PROCESO DE DISEÑO
 using namespace std;
 

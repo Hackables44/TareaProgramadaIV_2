@@ -1,5 +1,7 @@
 #include "Lista.h"
 #include "Elemento.h"
+#include <iostream>
+
 
 using namespace std;
 // CELDA
@@ -115,7 +117,7 @@ Lista::Lista(){
 }
 
 
-Lista::Lista( Elemento * elemento, istream &entrada, int n){
+Lista::Lista( Elemento * elemento, ifstream &entrada, int n){
    primera=0;
    ultima=0;
    for(int i=0; i<n; ++i){
