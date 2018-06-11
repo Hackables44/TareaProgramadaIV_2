@@ -8,7 +8,7 @@
 class FabricaHilera : public Fabrica{
 	public:
 		/** Asigna los valores que servirán de entrada para poder identificar esta fábrica. */
-		FabricaHilera(const char * tipoProducto="string", const char * nombreProducto="Hilera");
+		FabricaHilera(const char * tipoProducto="Elemento", const char * nombreProducto="Hilera");
 		Producto * producir(); /** Devuelve, en este caso, el puntero del objeto Hilera */
 		~FabricaHilera(); /** Destructor donde si los punteros tienen alguna referencia, elimina la cadena de caracteres. */
 };
