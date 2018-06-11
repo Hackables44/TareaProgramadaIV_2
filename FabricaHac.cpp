@@ -5,7 +5,7 @@
 /** - Constructor, asigna el nombre y tipo de productos que la fábrica crea, de esta forma podemos identificar si esta es la fábrica que buscamos */
 FabricaHac::FabricaHac(const char * tipoProducto, const char * nombreProducto):Fabrica(tipoProducto, nombreProducto){
 	/** indico que el objeto que se utiliza es de tipo string, es como hacer setTipoProducto("string");  */ 
-	/** Asigno como nombre del producto, el nombre de la clase de la cual produce objetos, es como hacer setNombreProducto("Hilera"); */
+	/** Asigno como nombre del producto, el nombre de la clase de la cual produce objetos, es como hacer setNombreProducto("Hac"); */
 }
 
 /** - Destructor, se encarga de eliminar la cadena de caracteres a las que apuntan los punteros atributo, si los punteros tienen referencia nula, no hay necesidad de eliminar. Este método no es necesario implementarlo aquí, ya que podría usar el mismo método de su clase padre */
@@ -18,7 +18,7 @@ FabricaHac::~FabricaHac(){
 	}
 }
 
-/** - Invoca al constructor de la clase Hilera y devuelve el puntero que recibe */
+/** - Invoca al constructor de la clase Hac y devuelve el puntero que recibe */
 Producto * FabricaHac::producir(){
 	return new Hac(); /** invoca al constructor de la clase Hilera y devuelve el puntero que recibe */
 }
