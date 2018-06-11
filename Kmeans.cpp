@@ -6,6 +6,16 @@
 
 
 
+{
+	this->id_point = id_point;
+	total_values = values.size();
+
+	for(int i = 0; i < total_values; i++)
+		this->values.push_back(values[i]);
+
+	this->name = name;
+	id_cluster = -1;
+}
 
 	int getID()
 	{
