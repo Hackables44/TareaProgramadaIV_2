@@ -68,7 +68,7 @@ Fabrica * ZonaFranca::getFabrica(const char * tipo, const char * nombre){ /** Re
 		Si la fábrica en la posición "i" en el vector de fábricas tiene el tipo y nombre recibidos como parámetro lo asigna al puntero
 		y finalmente lo devuelve */
 	while(!fabricaRetornada && i< cantidadDeFabricas){
-		if(fabricas[i]->esDeTipo(tipo) && fabrica[i]->produce(nombre)){
+		if(fabricas[i]->esDeTipo(tipo) && fabricas[i]->produce(nombre)){
 			fabricaRetornada = fabrica[i];			
 		}
         ++i;
